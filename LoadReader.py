@@ -95,11 +95,12 @@ try:
         measure_time = time.perf_counter()
         file.write(str(counter) +  " " + str(value) + " " + str(measure_time-start) + "\n") #write counter, value, and time after start
         print(counter, value, measure_time-start)
-        plt.scatter(measure_time-start, value)
-        plt.show()
+        x.append(measure_time-start)
+        y.append(value)
 except (KeyboardInterrupt, SystemExit):
     print("bye ;)")
 file.close()
 
-
+plt.scatter(x,y)
+plt.show()
 
