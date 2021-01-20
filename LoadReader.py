@@ -11,8 +11,11 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 GPIO.setmode(GPIO.BCM) # Set GPIO numbering notation to BCM
-clock = 20
-data = 21
+clock = 21
+data = 20
+
+GPIO.setup(clock, GPIO.OUT) 
+GPIO.setup(data, GPIO.IN)
 
 file = open("datacontainer.txt","a") #Open file for data
 counter = 0 #initialize counter
