@@ -93,14 +93,17 @@ try:
         value = read() #hopefully this should take one value from the sensor
         #value = random.randint(100)
         measure_time = time.perf_counter()
-        file.write(str(counter) +  " " + str(value) + " " + str(measure_time-start) + "\n") #write counter, value, and time after start
+    
         print(counter, value, measure_time-start)
         x.append(measure_time-start)
         y.append(value)
 except (KeyboardInterrupt, SystemExit):
     print("bye ;)")
 file.close()
-
+for i in x
+    x[i] = x[i]-29800
+    x[i] = x[i]/10000
+    file.write(str(i) +  " " + str(x[i]) + " " + str(y[i]) + "\n") #write counter, value, and time after start
 plt.scatter(x,y)
 plt.show()
 
