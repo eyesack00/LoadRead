@@ -87,21 +87,19 @@ def ready():
     else:
         return False
 
-
 try:
-    while counter<100:
+    while True:
         counter = counter + 1 #so that we know how many measurements have been taken
         value = read() #hopefully this should take one value from the sensor
         #value = random.randint(100)
         measure_time = time.perf_counter()
         file.write(str(counter) +  " " + str(value) + " " + str(measure_time-start) + "\n") #write counter, value, and time after start
         print(counter, value, measure_time-start)
-        x.append(measure_time-start)
-        y.append(value)
+        plt.scatter(measure_time-start, value)
+        plt.show()
 except (KeyboardInterrupt, SystemExit):
     print("bye ;)")
 file.close()
-#Show scatter plot
-plt.scatter(x, y)
-plt.show()
+
+
 
