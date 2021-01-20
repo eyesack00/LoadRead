@@ -94,7 +94,7 @@ try:
         #value = random.randint(100)
         measure_time = time.perf_counter()
     
-        print(counter, value, measure_time-start)
+        print(counter, (value-29800)/10000, measure_time-start)
         x.append(measure_time-start)
         y.append(value)
 except (KeyboardInterrupt, SystemExit):
