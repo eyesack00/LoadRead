@@ -100,10 +100,10 @@ try:
 except (KeyboardInterrupt, SystemExit):
     print("bye ;)")
 file.close()
-for i in x
-    x[i] = x[i]-29800
-    x[i] = x[i]/10000
-    file.write(str(i) +  " " + str(x[i]) + " " + str(y[i]) + "\n") #write counter, value, and time after start
+for i in x:
+    x[int(i)] = x[int(i)]-29800
+    x[int(i)] = x[int(i)]/10000
+    file.write(str(int(i)) +  " " + str(x[int(i)]) + " " + str(y[int(i)]) + "\n") #write counter, value, and time after start
 plt.scatter(x,y)
 plt.show()
 
