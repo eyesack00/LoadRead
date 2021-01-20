@@ -2,19 +2,19 @@
 #All of the prebuilt programs I could find only found a value every several seconds
 #Hopefully this will be better.
 
-#import hx711
+
 import statistics as stat
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 from numpy import random
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-#GPIO.setmode(GPIO.BCM) # Set GPIO numbering notation to BCM
-#clock = 20
-#data = 21
+GPIO.setmode(GPIO.BCM) # Set GPIO numbering notation to BCM
+clock = 20
+data = 21
 
-file = open("C:/python/datacontainer.txt","a") #Open file for data
+file = open("datacontainer.txt","a") #Open file for data
 counter = 0 #initialize counter
 x = []
 y = []
@@ -26,25 +26,6 @@ file.write(dtstring + "\n") #Mark start time to file
 print(dtstring)
 
 start = time.perf_counter()
-
-try:
-    while counter<100:
-        counter = counter + 1 #so that we know how many measurements have been taken
-        value = read() #hopefully this should take one value from the sensor
-        #value = random.randint(100)
-        measure_time = time.perf_counter()
-        file.write(str(counter) +  " " + str(value) + " " + str(measure_time-start) + "\n") #write counter, value, and time after start
-        print(counter, value, measure_time-start)
-        x.append(measure_time-start)
-        y.append(value)
-except (KeyboardInterrupt, SystemExit):
-    print("bye ;)")
-file.close()
-#Show scatter plot
-plt.scatter(x, y)
-plt.show()
-
-
 
 def read():
     GPIO.output(clock, False)  # start by setting the pd_sck to 0
@@ -102,3 +83,22 @@ def ready():
         return True
     else:
         return False
+
+
+try:
+    while counter<100:
+        counter = counter + 1 #so that we know how many measurements have been taken
+        value = read() #hopefully this should take one value from the sensor
+        #value = random.randint(100)
+        measure_time = time.perf_counter()
+        file.write(str(counter) +  " " + str(value) + " " + str(measure_time-start) + "\n") #write counter, value, and time after start
+        print(counter, value, measure_time-start)
+        x.append(measure_time-start)
+        y.append(value)
+except (KeyboardInterrupt, SystemExit):
+    print("bye ;)")
+file.close()
+#Show scatter plot
+plt.scatter(x, y)
+plt.show()
+
