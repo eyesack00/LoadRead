@@ -90,19 +90,18 @@ def ready():
 try:
     while True:
         counter = counter + 1 #so that we know how many measurements have been taken
-        value = read() #hopefully this should take one value from the sensor
+        value = (read()-29800)/10000 #hopefully this should take one value from the sensor
         #value = random.randint(100)
         measure_time = time.perf_counter()
     
         print(counter, (value-29800)/10000, measure_time-start)
+        file.write(str(counter) +  " " + str(value) + " " + str(measure_time-start) + "\n") #write counter, value, and time after start
         x.append(measure_time-start)
         y.append(value)
 except (KeyboardInterrupt, SystemExit):
     print("bye ;)")
-for i in x:
-    x[int(i)-1] = x[int(i)-1]-29800
-    x[int(i)-1] = x[int(i)-1]/10000
-    file.write(str(int(i-1)) +  " " + str(x[int(i-1)]) + " " + str(y[int(i-1)]) + "\n") #write counter, value, and time after start
+
+
 file.close()
 plt.scatter(x,y)
 plt.show()
