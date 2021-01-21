@@ -25,7 +25,7 @@ y = []
 now = datetime.now()
 dtstring = now.strftime("%D/%M/%Y %H:%M:%S")
 
-file = open("datacontainer"+dtstring+".txt","a") #Open file for data
+file = open("datacontainer.txt","a") #Open file for data
 file.write(dtstring + "\n") #Mark start time to file
 print(dtstring)
 
