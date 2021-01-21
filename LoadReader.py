@@ -29,8 +29,13 @@ file = open("datacontainer.txt","a") #Open file for data
 file.write(dtstring + "\n") #Mark start time to file
 print(dtstring)
 
-start = time.perf_counter()
-
+def ready():
+    # if DOUT pin is low data is ready for reading
+    if GPIO.input(data) == 0:
+        return True
+    else:
+        return False
+    
 def read():
     GPIO.output(clock, False)  # start by setting the pd_sck to 0
     ready_counter = 0
@@ -80,13 +85,6 @@ def read():
     else:  # else do not do anything the value is positive number
         signed_data = data_in
     return signed_data
-
-def ready():
-    # if DOUT pin is low data is ready for reading
-    if GPIO.input(data) == 0:
-        return True
-    else:
-        return False
     
 def tare():
     #Wait for key press, take some measurements, and use the median to tare the pi. We're using the median because
@@ -106,16 +104,38 @@ def tare():
         torn_std = stat.stdev(torn_values)
         print("Median: " + str(torn_median))
         print("Standard Deviation: " + str(torn_std))
-        good = input("Acceptable? y for yes, anything else for no")
+        good = input("Acceptable? y for yes, anything else for no... ")
         if good == "y":
             unstable = False
     return torn_median
 
+def calibrate():
+    unstable = True
+    while unstable:
+        multiplier = []
+        known_force = input("Place a known force against the load cell in compression. Compression will be positive.\nEnter that value here, in the units you would like the measurements to be... ")
+        for j in range(1,30):
+            multiplier.append(read()/known_force)
+        for j in range(1,5):
+            multiplier.remove(max(multiplier))
+            multiplier.remove(min(multiplier))
+
+        multi_median = stat.median(multiplier)
+        multi_std = stat.stdev(multiplier)
+        print("Median: " + str(multi_median))
+        print("Standard Deviation: " + str(multi_std))
+        good = input("Acceptable? y for yes, anything else for no... ")
+        if good == "y":
+            unstable = False
+    return multi_median
+
 try:
     offset = tare()
+    multiplier = calibrate()
+    start = time.perf_counter()
     while True:
         counter = counter + 1 #so that we know how many measurements have been taken
-        value = (read()-offset)/10000 #hopefully this should take one value from the sensor
+        value = (read()-offset)/multiplier #hopefully this should take one value from the sensor
         #value = random.randint(100)
         measure_time = time.perf_counter()
     
