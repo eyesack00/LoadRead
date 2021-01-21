@@ -109,13 +109,13 @@ def tare():
             unstable = False
     return torn_median
 
-def calibrate():
+def calibrate(torn_value):
     unstable = True
     while unstable:
         multiplier = []
         known_force = input("Place a known force against the load cell in compression. Compression will be positive.\nEnter that value here, in the units you would like the measurements to be... ")
         for j in range(1,30):
-            multiplier.append(read()/known_force)
+            multiplier.append(-(float(read())-torn_value)/float(known_force))
         for j in range(1,5):
             multiplier.remove(max(multiplier))
             multiplier.remove(min(multiplier))
@@ -131,7 +131,7 @@ def calibrate():
 
 try:
     offset = tare()
-    multiplier = calibrate()
+    multiplier = calibrate(offset)
     start = time.perf_counter()
     while True:
         counter = counter + 1 #so that we know how many measurements have been taken
