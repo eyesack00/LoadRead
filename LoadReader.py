@@ -104,8 +104,8 @@ def tare():
             torn_values.remove(min(torn_values))
         torn_median = stat.median(torn_values)
         torn_std = stat.stdev(torn_values)
-        print("Median: " + torn_median)
-        print("Standard Deviation: " + torn_std)
+        print("Median: " + str(torn_median))
+        print("Standard Deviation: " + str(torn_std))
         good = input("Acceptable? y for yes, anything else for no")
         if good == "y":
             unstable = False
