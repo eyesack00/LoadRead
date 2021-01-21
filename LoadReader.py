@@ -17,7 +17,6 @@ data = 20
 GPIO.setup(clock, GPIO.OUT) 
 GPIO.setup(data, GPIO.IN)
 
-file = open("datacontainer.txt","a") #Open file for data
 counter = 0 #initialize counter
 x = []
 y = []
@@ -25,6 +24,8 @@ y = []
 #Get time
 now = datetime.now()
 dtstring = now.strftime("%D/%M/%Y %H:%M:%S")
+
+file = open("datacontainer"+dtstring+".txt","a") #Open file for data
 file.write(dtstring + "\n") #Mark start time to file
 print(dtstring)
 
@@ -86,11 +87,35 @@ def ready():
         return True
     else:
         return False
+    
+def tare():
+    #Wait for key press, take some measurements, and use the median to tare the pi. We're using the median because
+    #there tend to be some random huge measurements mixed in with the bunch.
+    torn_values = []
+    input("Press enter when you're ready to tare...")
+    unstable = True #used for while loop
+    while unstable:
+        #take 30 values, remove the top and bottom five, take the standard deviation and median, show them to the user, and ask if they want another 30
+        #return the median for use in calibration
+        for j in range(1,30):
+            torn_values.append(read())
+        for j in range(1,5):
+            torn_values.remove(max(torn_values))
+            torn_values.remove(min(torn_values))
+        torn_median = statistics.median(torn_values)
+        torn_std = statistics.stdev(torn_values)
+        print("Median: " + torn_median)
+        print("Standard Deviation: " + torn_std)
+        good = input("Acceptable? y for yes, anything else for no")
+        if good = "y":
+            unstable = False
+    return torn_median
 
 try:
+    offset = tare()
     while True:
         counter = counter + 1 #so that we know how many measurements have been taken
-        value = (read()-29800)/10000 #hopefully this should take one value from the sensor
+        value = (read()-offset)/10000 #hopefully this should take one value from the sensor
         #value = random.randint(100)
         measure_time = time.perf_counter()
     
