@@ -89,12 +89,12 @@ def read():
 def tare():
     #Wait for key press, take some measurements, and use the median to tare the pi. We're using the median because
     #there tend to be some random huge measurements mixed in with the bunch.
-    torn_values = []
     input("Press enter when you're ready to tare...")
     unstable = True #used for while loop
     while unstable:
         #take 30 values, remove the top and bottom five, take the standard deviation and median, show them to the user, and ask if they want another 30
         #return the median for use in calibration
+        torn_values = []
         for j in range(1,30):
             torn_values.append(read())
         for j in range(1,5):
@@ -113,9 +113,9 @@ def calibrate(torn_value):
     unstable = True
     while unstable:
         multiplier = []
-        known_force = input("Place a known force against the load cell in compression. Compression will be positive.\nEnter that value here, in the units you would like the measurements to be... ")
+        known_force = input("Place a known force against the load cell in compression.\nEnter that value here, in the units you would like the measurements to be... ")
         for j in range(1,30):
-            multiplier.append(-(float(read())-torn_value)/float(known_force))
+            multiplier.append((float(read())-torn_value)/float(known_force))
         for j in range(1,5):
             multiplier.remove(max(multiplier))
             multiplier.remove(min(multiplier))
