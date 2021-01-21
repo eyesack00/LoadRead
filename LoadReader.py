@@ -102,8 +102,8 @@ def tare():
         for j in range(1,5):
             torn_values.remove(max(torn_values))
             torn_values.remove(min(torn_values))
-        torn_median = statistics.median(torn_values)
-        torn_std = statistics.stdev(torn_values)
+        torn_median = stat.median(torn_values)
+        torn_std = stat.stdev(torn_values)
         print("Median: " + torn_median)
         print("Standard Deviation: " + torn_std)
         good = input("Acceptable? y for yes, anything else for no")
