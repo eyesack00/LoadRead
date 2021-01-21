@@ -107,7 +107,7 @@ def tare():
         print("Median: " + torn_median)
         print("Standard Deviation: " + torn_std)
         good = input("Acceptable? y for yes, anything else for no")
-        if good = "y":
+        if good == "y":
             unstable = False
     return torn_median
 
