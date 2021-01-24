@@ -25,7 +25,10 @@ y = []
 now = datetime.now()
 dtstring = now.strftime("%D/%M/%Y %H:%M:%S")
 
-file = open("datacontainer.txt","a") #Open file for data
+filename = input("What would you like the data file to be called? If you double up on names, the data will be stacked on top of the first file.")
+
+
+file = open(filename + ".txt","a") #Open file for data
 file.write(dtstring + "\n") #Mark start time to file
 print(dtstring)
 
