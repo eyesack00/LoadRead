@@ -118,12 +118,6 @@ def calibrate(torn_value):
             unstable = False
     return multi_median
 
-def label_mode()
-    mode = input("Type L for label mode or N for normal mode... ")
-    if mode = "L":
-        return True
-    else:
-        return False
 
 
 try:
