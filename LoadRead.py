@@ -126,6 +126,7 @@ try:
    
     filename = "data"
     while True:
+        settings = True
         while settings: #your typical settings menu, skippable and loopable
             change = input("Would you like to change any settings? y for yes... ")
             if change == "y":
