@@ -125,7 +125,7 @@ try:
     multiplier = calibrate(offset)
     label_mode = label_mode()
     filename = "data"
-    While True:
+    while True:
         while settings: #your typical settings menu, skippable and loopable
             change = input("Would you like to change any settings? y for yes... ")
             if change = "y":
