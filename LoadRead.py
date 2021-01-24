@@ -175,8 +175,9 @@ try:
                 file.close()
                 plt.scatter(x,y)
                 plt.show()
-    if input("Would you like to end this program? y for yes... ") == "y":
-        raise Exception()
+                if input("Would you like to end this program? y for yes... ") == "y":
+                    raise Exception()
+    
 except (KeyboardInterrupt, SystemExit):
     print("bye ;)")
     exit()
