@@ -123,7 +123,7 @@ def calibrate(torn_value):
 try:
     offset = tare()
     multiplier = calibrate(offset)
-    label_mode = label_mode()
+   
     filename = "data"
     while True:
         while settings: #your typical settings menu, skippable and loopable
