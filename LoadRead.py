@@ -17,20 +17,6 @@ data = 20
 GPIO.setup(clock, GPIO.OUT) 
 GPIO.setup(data, GPIO.IN)
 
-counter = 0 #initialize counter
-x = []
-y = []
-
-#Get time
-now = datetime.now()
-dtstring = now.strftime("%D/%M/%Y %H:%M:%S")
-
-filename = input("What would you like the data file to be called? If you double up on names, the data will be stacked on top of the first file.")
-
-
-file = open(filename + ".txt","a") #Open file for data
-file.write(dtstring + "\n") #Mark start time to file
-print(dtstring)
 
 def ready():
     # if DOUT pin is low data is ready for reading
@@ -132,25 +118,69 @@ def calibrate(torn_value):
             unstable = False
     return multi_median
 
+def label_mode()
+    mode = input("Type L for label mode or N for normal mode... ")
+    if mode = "L":
+        return True
+    else:
+        return False
+
+
 try:
     offset = tare()
     multiplier = calibrate(offset)
-    start = time.perf_counter()
-    while True:
-        counter = counter + 1 #so that we know how many measurements have been taken
-        value = (read()-offset)/multiplier #hopefully this should take one value from the sensor
-        #value = random.randint(100)
-        measure_time = time.perf_counter()
-    
-        print(counter, value, measure_time-start)
-        file.write(str(counter) +  " " + str(value) + " " + str(measure_time-start) + "\n") #write counter, value, and time after start
-        x.append(measure_time-start)
-        y.append(value)
+    label_mode = label_mode()
+    filename = "data"
+    While True
+        while settings: #your typical settings menu, skippable and loopable
+            change = input("Would you like to change any settings? y for yes... ")
+            if change = "y":
+                change = input("Change tare/calibration? y for yes... ")
+                if change = "y":
+                    offset = tare()
+                    multiplier = calibrate(offset)
+                change = input("Change destination file name? y for yes... ")
+                if change = "y":
+                    filename = input("What would you like the data file to be called?")
+                change = input("Are you okay with these settings? y for yes... ")
+                if change = "y":
+                    settings = False
+            
+        
+        label = input("What would you like your data label to be? ... ")
+        
+        try:
+            #Get time
+            now = datetime.now()
+            dtstring = now.strftime("%D/%M/%Y %H:%M:%S")
+            #Open file with name that was gotten before
+            file = open(filename + ".txt","a") #Open file for data
+            file.write(label + "\n") #Label data
+            file.write(dtstring + "\n") #Mark start time to file
+            #Reset variable containers
+            counter = 0
+            x = []
+            y = []
+            print(label)
+            print(dtstring)
+            start = time.perf_counter() #Start timer
+            while True: #Data record bit
+                counter = counter + 1 #so that we know how many measurements have been taken
+                value = (read()-offset)/multiplier #hopefully this should take one value from the sensor
+                #value = random.randint(100) #Used to test code when load cell wasn't working
+                measure_time = time.perf_counter() #get time
+                print(counter, value, measure_time-start) #live viewing of data
+                file.write(str(counter) +  " " + str(value) + " " + str(measure_time-start) + "\n") #write counter, value, and time after start
+                x.append(measure_time-start) #values for chart. you can probably get rid of this if you want slightly faster performance
+                y.append(value)
+        except (KeyboardInterrupt, SystemExit):
+                file.close()
+                plt.scatter(x,y)
+                plt.show()
 except (KeyboardInterrupt, SystemExit):
     print("bye ;)")
+    exit()
 
 
-file.close()
-plt.scatter(x,y)
-plt.show()
+
 
