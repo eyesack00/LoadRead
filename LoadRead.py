@@ -161,6 +161,7 @@ try:
             print(label)
             print(dtstring)
             start = time.perf_counter() #Start timer
+            input("Press ctrl-c to stop the program. Press enter to start measuring...")
             while True: #Data record bit
                 counter = counter + 1 #so that we know how many measurements have been taken
                 value = (read()-offset)/multiplier #hopefully this should take one value from the sensor
@@ -174,6 +175,8 @@ try:
                 file.close()
                 plt.scatter(x,y)
                 plt.show()
+    if input("Would you like to end this program? y for yes... ") == "y"
+        raise Exception()
 except (KeyboardInterrupt, SystemExit):
     print("bye ;)")
     exit()
