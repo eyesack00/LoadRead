@@ -140,6 +140,8 @@ try:
                 change = input("Are you okay with these settings? y for yes... ")
                 if change == "y":
                     settings = False
+            else:
+                break
             
         
         label = input("What would you like your data label to be? ... ")
