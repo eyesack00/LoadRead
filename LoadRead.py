@@ -128,16 +128,16 @@ try:
     while True:
         while settings: #your typical settings menu, skippable and loopable
             change = input("Would you like to change any settings? y for yes... ")
-            if change = "y":
+            if change == "y":
                 change = input("Change tare/calibration? y for yes... ")
-                if change = "y":
+                if change == "y":
                     offset = tare()
                     multiplier = calibrate(offset)
                 change = input("Change destination file name? y for yes... ")
-                if change = "y":
+                if change == "y":
                     filename = input("What would you like the data file to be called?")
                 change = input("Are you okay with these settings? y for yes... ")
-                if change = "y":
+                if change == "y":
                     settings = False
             
         
