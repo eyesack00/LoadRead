@@ -102,7 +102,7 @@ def calibrate(torn_value):
     unstable = True
     while unstable:
         multiplier = []
-        known_force = input("Place a known force against the load cell in compression.\nEnter that value here, in the units you would like the measurements to be... ")
+        known_force = input("Place a known force against the load cell.\nEnter that value here... ")
         for j in range(1,30):
             multiplier.append((float(read())-torn_value)/float(known_force))
         for j in range(1,5):
@@ -113,6 +113,8 @@ def calibrate(torn_value):
         multi_std = stat.stdev(multiplier)
         print("Median: " + str(multi_median))
         print("Standard Deviation: " + str(multi_std))
+        print(known_force)
+        print(torn_value)
         good = input("Acceptable? y for yes, anything else for no... ")
         if good == "y":
             unstable = False
