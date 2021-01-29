@@ -126,17 +126,17 @@ def calibrate(torn_value):
 def sorter(values):
     slopes = []
     values.append(0)
-    plt.plot(range(1,len(values),values),'o')
+    plt.plot(range(1,len(values),values,'o')
     diff = []
     for i in values:
         diff = values[i+1] - values[i]
         slopes.append(diff)
-    plt.plot(range(1,len(diff)),diff),'d')
+    plt.plot(range(1,len(diff)),diff,'d')
     diff.append(0)
     acc = []
     for j in diff:
         acc = diff[j+1] - diff[j]
-    plt.plot(range(1,len(acc)),acc),'d')
+    plt.plot(range(1,len(acc)),acc,'d')
 
 
 
