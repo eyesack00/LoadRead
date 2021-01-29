@@ -127,15 +127,15 @@ def sorter(values):
     slopes = []
     values.append(0)
     plt.plot(range(1,len(values),values,'o')
-    diff = []
+    diffe = []
     for i in values:
-        diff = values[i+1] - values[i]
-        slopes.append(diff)
-    plt.plot(range(1,len(diff)),diff,'d')
+        diffe = values[i+1] - values[i]
+        slopes.append(diffe)
+    plt.plot(range(1,len(diffe)),diffe,'d')
     diff.append(0)
     acc = []
-    for j in diff:
-        acc = diff[j+1] - diff[j]
+    for j in diffe:
+        acc = diffe[j+1] - diffe[j]
     plt.plot(range(1,len(acc)),acc,'d')
 
 
