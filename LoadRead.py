@@ -1,3 +1,5 @@
+#!/isr/bin/env python3
+
 #This program is for gathering lots of data from the 500 lb load cell and HX711 load cell amp
 #All of the prebuilt programs I could find only found a value every several seconds
 #Hopefully this will be better.
@@ -9,6 +11,7 @@ import time
 from numpy import random
 from datetime import datetime
 import matplotlib.pyplot as plt
+import os
 
 GPIO.setmode(GPIO.BCM) # Set GPIO numbering notation to BCM
 clock = 21
@@ -120,9 +123,25 @@ def calibrate(torn_value):
             unstable = False
     return multi_median
 
+def sorter(values):
+    slopes = []
+    values.append(0)
+    plt.plot(range(1,len(values),values),'o')
+    diff = []
+    for i in values:
+        diff = values[i+1] - values[i]
+        slopes.append(diff)
+    plt.plot(range(1,len(diff)),diff),'d')
+    diff.append(0)
+    acc = []
+    for j in diff:
+        acc = diff[j+1] - diff[j]
+    plt.plot(range(1,len(acc)),acc),'d')
+
 
 
 try:
+    os.system("start cmd")
     offset = tare()
     multiplier = calibrate(offset)
    
@@ -174,12 +193,15 @@ try:
                 x.append(measure_time-start) #values for chart. you can probably get rid of this if you want slightly faster performance
                 y.append(value)
         except (KeyboardInterrupt, SystemExit):
+                '''
                 file.close()
                 plt.scatter(x,y)
                 plt.show()
+                '''
+                sorter(y)
                 if input("Would you like to end this program? y for yes... ") == "y":
                     raise Exception()
-    
+                    
 except (KeyboardInterrupt, SystemExit):
     print("bye ;)")
     exit()
