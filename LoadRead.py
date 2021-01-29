@@ -122,13 +122,13 @@ def calibrate(torn_value):
         if good == "y":
             unstable = False
     return multi_median
-
+'''
 def sorter(values):
     slopes = []
     values.append(0)
     plt.plot(range(1,len(values),values,'o')
     
-    for i in values:
+    for i in values[]:
         diffe = values[i+1] - values[i]
         slopes.append(diffe)
     plt.plot(range(1,len(slopes)),slopes,'d')
@@ -137,11 +137,11 @@ def sorter(values):
     for j in slopes:
         acc = slopes[j+1] - slopes[j]
     plt.plot(range(1,len(acc)),acc,'d')
-
+'''
 
 
 try:
-    os.system("start cmd")
+    #os.system("start cmd")
     offset = tare()
     multiplier = calibrate(offset)
    
@@ -193,12 +193,12 @@ try:
                 x.append(measure_time-start) #values for chart. you can probably get rid of this if you want slightly faster performance
                 y.append(value)
         except (KeyboardInterrupt, SystemExit):
-                '''
+                
                 file.close()
                 plt.scatter(x,y)
                 plt.show()
-                '''
-                sorter(y)
+                
+                #sorter(y)
                 if input("Would you like to end this program? y for yes... ") == "y":
                     raise Exception()
                     
